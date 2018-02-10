@@ -13,7 +13,15 @@ export default class extends React.Component {
         };
     }
 
+    componentWillMount() {
+        this.updateValue(new Date());
+    }
+
     handleDayClick(date) {
+        this.updateValue(date);
+    }
+
+    updateValue(date) {
         const calc = new SolarCalc(date, this.state.lat, this.state.lon);
         this.setState({
             date,
