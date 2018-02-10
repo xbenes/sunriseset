@@ -2,6 +2,7 @@ import React from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import SolarCalc from 'solar-calc';
+import { PlainDate, PlainTime } from './datetime';
 
 export default class extends React.Component {
     constructor(...args) {
@@ -37,9 +38,15 @@ export default class extends React.Component {
                     selectedDays={[this.state.date]}
                     onDayClick={this.handleDayClick.bind(this)}
                 />
-                <div>{String(this.state.date)}</div>
-                <div>{String(this.state.sunrise)}</div>
-                <div>{String(this.state.sunset)}</div>
+                <div>
+                    <PlainDate date={this.state.date} />
+                </div>
+                <div>
+                    <PlainTime date={this.state.sunrise} />
+                </div>
+                <div>
+                    <PlainTime date={this.state.sunset} />
+                </div>
             </div>
         );
     }
