@@ -31,13 +31,20 @@ export default class extends React.Component {
         })
     }
 
-    render() {
+    renderDayPicker() {
         return (
-            <div>
+            <div className="daypicker">
                 <DayPicker
                     selectedDays={[this.state.date]}
                     onDayClick={this.handleDayClick.bind(this)}
                 />
+            </div>
+        );
+    }
+
+    renderSunriseSunset() {
+        return (
+            <div>
                 <div>
                     <PlainDate date={this.state.date} />
                 </div>
@@ -49,5 +56,19 @@ export default class extends React.Component {
                 </div>
             </div>
         );
+    }
+
+    render() {
+       return (
+           <div className="main">
+               <div className="header">Sunrise/Sunset in {this.state.locName}</div>
+               <div className="block">
+                   { this.renderDayPicker() }
+               </div>
+               <div className="block">
+                   { this.renderSunriseSunset() }
+               </div>
+           </div>
+       );
     }
 }
