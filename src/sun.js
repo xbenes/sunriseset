@@ -44,14 +44,13 @@ export default class extends React.Component {
 
     renderSunriseSunset() {
         return (
-            <div>
-                <div>
-                    <PlainDate date={this.state.date} />
-                </div>
-                <div>
+            <div className="values">
+                <div className="updown">
+                    <span>↗</span>&nbsp;
                     <PlainTime date={this.state.sunrise} />
                 </div>
-                <div>
+                <div className="updown">
+                    <span>↘</span>&nbsp;
                     <PlainTime date={this.state.sunset} />
                 </div>
             </div>
