@@ -2,7 +2,7 @@ import React from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import SolarCalc from 'solar-calc';
-import { PlainDate, PlainTime } from './datetime';
+import { PlainDate, PlainTime, formatDate } from './datetime';
 
 export default class extends React.Component {
     constructor(...args) {
@@ -23,12 +23,17 @@ export default class extends React.Component {
     }
 
     updateValue(date) {
-        const calc = new SolarCalc(date, this.state.lat, this.state.lon);
-        this.setState({
-            date,
-            sunrise: calc.sunrise,
-            sunset: calc.sunset
-        })
+        const url = `https://api.sunrise-sunset.org/json?lat=${this.state.lat}&lng=${this.state.lon}&date=${formatDate(date)}&formatted=0`;
+
+        fetch(url).then(response => {
+            return response.json();
+        }).then(response => {
+            this.setState({
+                date,
+                sunrise: new Date(response.results.sunrise),
+                sunset: new Date(response.results.sunset)
+            });
+        });
     }
 
     renderDayPicker() {
@@ -43,6 +48,10 @@ export default class extends React.Component {
     }
 
     renderSunriseSunset() {
+        if (!this.state.sunrise || !this.state.sunset) {
+            return null;
+        }
+
         return (
             <div className="values">
                 <div className="updown">

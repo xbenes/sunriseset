@@ -5,7 +5,7 @@ function formatTime(date) {
     return `${date.getHours()}:${minutes<10?'0':''}${minutes}`;
 }
 
-function formatDate(date) {
+export function formatDate(date) {
     return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
 }
 
