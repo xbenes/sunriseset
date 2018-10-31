@@ -14,7 +14,7 @@ export default class extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.updateValue(new Date());
     }
 
