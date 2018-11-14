@@ -4,7 +4,7 @@ import 'react-day-picker/lib/style.css';
 import SolarCalc from 'solar-calc';
 import { connect } from 'react-redux';
 import { PlainDate, PlainTime, formatDate } from './datetime';
-import { changeDate } from './actions/actions';
+import { changeDate, changeLocation } from './actions/actions';
 
 class Sun extends React.Component {
     componentDidMount() {
@@ -13,6 +13,10 @@ class Sun extends React.Component {
 
     handleDayClick(date) {
         this.props.changeDate(date);
+    }
+
+    handleLocationSelect(location) {
+        this.props.changeLocation(location);
     }
 
     renderDayPicker() {
@@ -36,6 +40,7 @@ class Sun extends React.Component {
         return (
             <select
                 value={this.props.location}
+                onChange={(e) => { this.handleLocationSelect(e.target.value); }}
             >
                 { this.renderLocationItems() }
             </select>
@@ -85,7 +90,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    changeDate
+    changeDate,
+    changeLocation
 };
 
 export default connect(

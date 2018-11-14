@@ -30,7 +30,15 @@ const INITIAL_LOCATION_STATE = {
 };
 
 const locationReducer = (state = INITIAL_LOCATION_STATE, action) => {
-    return state;
+    switch (action.type) {
+        case 'CHANGE_LOCATION':
+            return {
+                location: action.location,
+                locations: state.locations
+            };
+        default:
+            return state;
+    }
 };
 
 export default combineReducers({
