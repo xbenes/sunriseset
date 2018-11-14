@@ -17,6 +17,7 @@ class Sun extends React.Component {
     }
 
     componentDidMount() {
+        this.props.changeDate(new Date());
         this.updateValue(new Date());
     }
 
@@ -32,7 +33,6 @@ class Sun extends React.Component {
             return response.json();
         }).then(response => {
             this.setState({
-                date,
                 sunrise: new Date(response.results.sunrise),
                 sunset: new Date(response.results.sunset)
             });
@@ -43,7 +43,7 @@ class Sun extends React.Component {
         return (
             <div className="daypicker">
                 <DayPicker
-                    selectedDays={[this.state.date]}
+                    selectedDays={[this.props.date]}
                     onDayClick={this.handleDayClick.bind(this)}
                 />
             </div>
@@ -84,11 +84,15 @@ class Sun extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+    date: state.date
+});
+
 const mapDispatchToProps = {
     changeDate
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(Sun);
