@@ -21,7 +21,20 @@ const sunReducer = (state = null, action) => {
     }
 };
 
+const INITIAL_LOCATION_STATE = {
+    location: 'Brno',
+    locations: {
+        Brno: { lat: 49.195, lon: 16.606 },
+        Praha: { lat: 50.088, lon: 14.420 }
+    }
+};
+
+const locationReducer = (state = INITIAL_LOCATION_STATE, action) => {
+    return state;
+};
+
 export default combineReducers({
     date: dateReducer,
-    sun: sunReducer
+    sun: sunReducer,
+    location: locationReducer
 });

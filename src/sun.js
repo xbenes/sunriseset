@@ -26,6 +26,22 @@ class Sun extends React.Component {
         );
     }
 
+    renderLocationItems() {
+        return Object.keys(this.props.locations).map(location => {
+            return <option key={location} value={location}>{location}</option>
+        });
+    }
+
+    renderLocationPicker() {
+        return (
+            <select
+                value={this.props.location}
+            >
+                { this.renderLocationItems() }
+            </select>
+        );
+    }
+
     renderSunriseSunset() {
         if (!this.props.sunrise || !this.props.sunset) {
             return null;
@@ -48,7 +64,7 @@ class Sun extends React.Component {
     render() {
        return (
            <div className="main">
-               <div className="header">Sunrise/Sunset in Brno</div>
+               <div className="header">Sunrise/Sunset in {this.renderLocationPicker()}</div>
                <div className="block">
                    { this.renderDayPicker() }
                </div>
@@ -63,7 +79,9 @@ class Sun extends React.Component {
 const mapStateToProps = state => ({
     date: state.date,
     sunrise: state.sun ? state.sun.sunrise : null,
-    sunset: state.sun ? state.sun.sunset : null
+    sunset: state.sun ? state.sun.sunset : null,
+    locations: state.location.locations,
+    location: state.location.location
 });
 
 const mapDispatchToProps = {
