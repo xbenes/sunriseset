@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux';
 
 const dateReducer = (state = null, action) => {
-    return state;
-}
+    switch (action.type) {
+        case 'CHANGE_DATE':
+            return action.date;
+        default:
+            return state
+    }
+};
 
 export default combineReducers({
     date: dateReducer
