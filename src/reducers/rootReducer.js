@@ -9,6 +9,19 @@ const dateReducer = (state = null, action) => {
     }
 };
 
+const sunReducer = (state = null, action) => {
+    switch (action.type) {
+        case 'UPDATE_SUNRISE_SUNSET':
+            return {
+                sunrise: action.sunrise,
+                sunset: action.sunset
+            };
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
-    date: dateReducer
+    date: dateReducer,
+    sun: sunReducer
 });
