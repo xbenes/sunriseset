@@ -2,9 +2,11 @@ import React from 'react';
 import DayPicker from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import SolarCalc from 'solar-calc';
+import { connect } from 'react-redux';
 import { PlainDate, PlainTime, formatDate } from './datetime';
+import { changeDate } from './actions/actions';
 
-export default class extends React.Component {
+class Sun extends React.Component {
     constructor(...args) {
         super(...args);
         this.state = {
@@ -19,6 +21,7 @@ export default class extends React.Component {
     }
 
     handleDayClick(date) {
+        this.props.changeDate(date);
         this.updateValue(date);
     }
 
@@ -80,3 +83,12 @@ export default class extends React.Component {
        );
     }
 }
+
+const mapDispatchToProps = {
+    changeDate
+};
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Sun);
