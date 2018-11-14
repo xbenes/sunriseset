@@ -26,6 +26,10 @@
     "react": "16.2.0",
     "react-day-picker": "7.0.7",
     "react-dom": "16.2.0",
+    "react-redux": "5.0.7",
+    "redux": "4.0.0",
+    "redux-devtools-extension": "2.13.5",
+    "redux-thunk": "2.3.0",
     "solar-calc": "1.1.0",
     "webpack-merge": "4.1.4"
   }
