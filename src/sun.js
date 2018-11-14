@@ -7,36 +7,12 @@ import { PlainDate, PlainTime, formatDate } from './datetime';
 import { changeDate } from './actions/actions';
 
 class Sun extends React.Component {
-    constructor(...args) {
-        super(...args);
-        this.state = {
-            lat: 49.195,
-            lon: 16.606,
-            locName: 'Brno'
-        };
-    }
-
     componentDidMount() {
         this.props.changeDate(new Date());
-        this.updateValue(new Date());
     }
 
     handleDayClick(date) {
         this.props.changeDate(date);
-        this.updateValue(date);
-    }
-
-    updateValue(date) {
-        const url = `https://api.sunrise-sunset.org/json?lat=${this.state.lat}&lng=${this.state.lon}&date=${formatDate(date)}&formatted=0`;
-
-        fetch(url).then(response => {
-            return response.json();
-        }).then(response => {
-            this.setState({
-                sunrise: new Date(response.results.sunrise),
-                sunset: new Date(response.results.sunset)
-            });
-        });
     }
 
     renderDayPicker() {
@@ -51,7 +27,7 @@ class Sun extends React.Component {
     }
 
     renderSunriseSunset() {
-        if (!this.state.sunrise || !this.state.sunset) {
+        if (!this.props.sunrise || !this.props.sunset) {
             return null;
         }
 
@@ -59,11 +35,11 @@ class Sun extends React.Component {
             <div className="values">
                 <div className="updown">
                     <span>↗</span>&nbsp;
-                    <PlainTime date={this.state.sunrise} />
+                    <PlainTime date={this.props.sunrise} />
                 </div>
                 <div className="updown">
                     <span>↘</span>&nbsp;
-                    <PlainTime date={this.state.sunset} />
+                    <PlainTime date={this.props.sunset} />
                 </div>
             </div>
         );
@@ -72,7 +48,7 @@ class Sun extends React.Component {
     render() {
        return (
            <div className="main">
-               <div className="header">Sunrise/Sunset in {this.state.locName}</div>
+               <div className="header">Sunrise/Sunset in Brno</div>
                <div className="block">
                    { this.renderDayPicker() }
                </div>
@@ -85,7 +61,9 @@ class Sun extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    date: state.date
+    date: state.date,
+    sunrise: state.sun ? state.sun.sunrise : null,
+    sunset: state.sun ? state.sun.sunset : null
 });
 
 const mapDispatchToProps = {
